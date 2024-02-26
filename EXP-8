@@ -1,0 +1,20 @@
+import pandas as pd
+data = {
+    'Date': ['2022-01-01', '2022-01-01', '2022-01-02', '2022-01-02', '2022-01-03'],
+    'Item': ['A', 'B', 'A', 'B', 'A'],
+    'Unit_Sold': [10, 15, 20, 12, 18],
+    'Sale_Value': [100, 150, 200, 120, 180],
+}
+
+sales_data = pd.DataFrame(data)
+
+sales_data['Date'] = pd.to_datetime(sales_data['Date'])
+
+pivot_table_unit_sold = pd.pivot_table(sales_data, values='Unit_Sold', index='Item', aggfunc='sum')
+
+pivot_table_max_min_sale = pd.pivot_table(sales_data, values='Sale_Value', index='Item', aggfunc={'Sale_Value': ['max', 'min']})
+
+print("Item-wise Unit Sold:")
+print(pivot_table_unit_sold)
+print("\nMaximum and Minimum Sale Values:")
+print(pivot_table_max_min_sale)
